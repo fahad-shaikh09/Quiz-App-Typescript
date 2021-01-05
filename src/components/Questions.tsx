@@ -1,5 +1,5 @@
 import React from "react"
-import {AnswerObject} from "../App"
+import { AnswerObject } from "../App"
 
 
 type Props = {
@@ -12,16 +12,19 @@ type Props = {
     correct: boolean
 }
 
-const Questions: React.FC<Props> = ({ question, answers, callback, userAnswer, questionNr,
-    totalQues,correct }): any => {
 
-    console.log("question: ", question)
-    console.log("answers: ", answers)
-    console.log("callback: ", callback)
-    console.log("userAnswer: ", userAnswer)
-    console.log("questionNr: ", questionNr)
-    console.log("totalQues: ", totalQues)
-    console.log("correct: ", correct)
+const Questions: React.FC<Props> = ({ question, answers, callback, userAnswer, questionNr,
+    totalQues, correct }): any => {
+
+    // console.log("question: ", question)
+    // console.log("answers: ", answers)
+    // console.log("callback: ", callback)
+    // console.log("userAnswer: ", userAnswer)
+    // console.log("questionNr: ", questionNr)
+    // console.log("totalQues: ", totalQues)
+    // console.log("correct: ", correct)
+
+
 
     return (
         <div>
@@ -31,8 +34,8 @@ const Questions: React.FC<Props> = ({ question, answers, callback, userAnswer, q
             <div>
                 {answers.map((answer, ind) => (
                     <div key={answer}>
-                       
-                        <button onClick={callback} key={ind} value={answer}  >
+
+                        <button onClick={callback} key={ind} value={answer} >
                             {answer}
                         </button>
                     </div>

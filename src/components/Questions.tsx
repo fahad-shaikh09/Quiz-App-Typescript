@@ -1,16 +1,19 @@
 import React from "react"
+import {AnswerObject} from "../App"
+
 
 type Props = {
     question: string;
     answers: string[];
-    callback: any;
-    userAnswer: any;
+    callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    userAnswer: AnswerObject | undefined;
     questionNr: number;
     totalQues: number
+    correct: boolean
 }
 
 const Questions: React.FC<Props> = ({ question, answers, callback, userAnswer, questionNr,
-    totalQues }): any => {
+    totalQues,correct }): any => {
 
     console.log("question: ", question)
     console.log("answers: ", answers)
@@ -18,17 +21,18 @@ const Questions: React.FC<Props> = ({ question, answers, callback, userAnswer, q
     console.log("userAnswer: ", userAnswer)
     console.log("questionNr: ", questionNr)
     console.log("totalQues: ", totalQues)
+    console.log("correct: ", correct)
 
     return (
         <div>
-            <p>Question: {questionNr} / {totalQues}</p>
-            <p>Question: {question}</p>
+            <h3>Question: {questionNr} / {totalQues}</h3>
+            <h4>Question: {question}</h4>
 
             <div>
                 {answers.map((answer, ind) => (
                     <div key={answer}>
                        
-                        <button onClick={callback} key={ind} value={answer} disabled={userAnswer ? true : false} >
+                        <button onClick={callback} key={ind} value={answer}  >
                             {answer}
                         </button>
                     </div>

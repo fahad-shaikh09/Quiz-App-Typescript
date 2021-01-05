@@ -3,6 +3,12 @@ import Questions from "./components/Questions"
 import dataFromAPI from "./API"
 import { Difficulty, QuestionState } from "./API"
 
+export type AnswerObject = {
+  question: string,
+  answer: string,
+  correct: boolean,
+  correctAnswer: string,
+}
 
 function App() {
 
@@ -15,13 +21,8 @@ function App() {
   const [score, SetScore] = useState(0)
   // const [answers, SetAnswers] = useState([])
   const [userAnswers, SetUserAnswers] = useState<AnswerObject[]>([])
+  const [correct,SetCorrect] = useState(false)
 
-  type AnswerObject = {
-    question: string,
-    answer: string,
-    correct: boolean,
-    correctAnswer: string,
-  }
 
   const fetchQuesFromAPI = async () => {
     SetLoading(true);
@@ -40,14 +41,14 @@ function App() {
     if (!quizCompleted) {
       const answer = e.currentTarget.value;
 
-      const correct = questions[questionNumber].correct_answer === answer;
+      SetCorrect(questions[questionNumber].correct_answer === answer);
 
-      if (correct) {
+      if(correct) {
         SetScore(prevScore => prevScore + 1);
         const answerObj = {
           question: questions[questionNumber].question,
           answer: answer,
-          correct: correct,
+          correct,
           correctAnswer: questions[questionNumber].correct_answer,
         }
         SetUserAnswers(prev => [...prev, answerObj])
@@ -55,11 +56,15 @@ function App() {
 
       if (questionNumber + 1 === TOTAL_QUESTIONS) {
         SetQuizCompleted(true)
+        
       } else {
         SetQuestionNumber(prevQuesNr => prevQuesNr + 1)
 
       }
     }
+    if(questionNumber +1 === TOTAL_QUESTIONS){
+    SetQuizCompleted(true);
+    alert("Quiz is completed!")}
   }
 
   // const nextQuestion = () => {
@@ -79,14 +84,17 @@ function App() {
 
       {loading && <h2>Loading Questions...</h2>}
 
+       
       {!loading && !quizCompleted &&
         <Questions
           question={questions[questionNumber].question}
           answers={questions[questionNumber].answers}
           callback={checkAnswer}
-          userAnswer={userAnswers ? userAnswers[questionNumber] : undefined}
+          userAnswer={userAnswers ? userAnswers[questionNumber]: undefined }
           questionNr={questionNumber + 1}
-          totalQues={TOTAL_QUESTIONS} />
+          totalQues={TOTAL_QUESTIONS}
+          correct={correct} 
+          />
       }
 
       <br />

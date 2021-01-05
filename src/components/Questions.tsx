@@ -10,28 +10,35 @@ type Props = {
 }
 
 const Questions: React.FC<Props> = ({ question, answers, callback, userAnswer, questionNr,
-    totalQues }):any => {
+    totalQues }): any => {
 
+    console.log("question: ", question)
+    console.log("answers: ", answers)
+    console.log("callback: ", callback)
+    console.log("userAnswer: ", userAnswer)
+    console.log("questionNr: ", questionNr)
+    console.log("totalQues: ", totalQues)
 
-    return
-    <div>
-        <p>Question: {questionNr} / {totalQues}</p>
-        <p>question: {question}</p>
-        
+    return (
         <div>
-            {answers.map(answer => (
-                <div> 
-                    <button onClick={callback}>
-                        {answer}
-                    </button>
-                </div>
+            <p>Question: {questionNr} / {totalQues}</p>
+            <p>Question: {question}</p>
 
-            ))}
+            <div>
+                {answers.map((answer, ind) => (
+                    <div key={answer}>
+                       
+                        <button onClick={callback} key={ind} value={answer} disabled={userAnswer ? true : false} >
+                            {answer}
+                        </button>
+                    </div>
+
+                ))}
             </div>
 
 
-    </div>
-
+        </div>
+    )
 }
 
 export default Questions
